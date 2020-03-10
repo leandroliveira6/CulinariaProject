@@ -8,7 +8,7 @@ def index(request):
 
 
 def detail(request, id):
-    rreceita = Receita.objects.filter(pk=id) # get_object_or_404(Receita, pk=id)
+    receita = Receita.objects.filter(pk=id) # get_object_or_404(Receita, pk=id)
     return render(request, 'receita.html', {'receita': receita})
 
 
