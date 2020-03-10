@@ -20,6 +20,5 @@ from receitasapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-
-    path('receita', views.receita, name='receita'),
+    path('<int:id>', views.receita, name='receita'),
 ]
