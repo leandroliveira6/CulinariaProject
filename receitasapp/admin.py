@@ -4,7 +4,7 @@ from .models import Receita
 
 class ReceitaAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'category', 'time',
-                    'creation_date', 'owner_person', 'visible')
+                    'creation_date', 'owner_user', 'visible')
     list_display_links = ('id', 'name',)
     search_fields = ('name',)
     list_filter = ('category',)

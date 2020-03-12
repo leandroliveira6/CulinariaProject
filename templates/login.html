@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col p-0">
+      <h1>Login</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form method="POST" action="{% url 'login' %}">{% csrf_token %}
+        <div class="row form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="row form-group">
+          <label for="pwd">Senha:</label>
+          <input type="password" class="form-control" id="pwd" name="password" required>
+        </div>
+        <div class="row checkbox">
+          <label><input type="checkbox"> Lembrar</label>
+        </div>
+        <div class="row d-flex justify-content-between">
+          <button class="btn btn-primary col-5" type="submit">Logar</button>
+          <a href="{% url 'register' %}" class="btn btn-primary col-5">Cadastrar</a>
+        </div>
+        <br />
+        <span class="invalid-feedback">Login ou senha invalidos</span>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}

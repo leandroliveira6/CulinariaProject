@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col p-0">
+      <h1>Registro</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form method="POST" action="{% url 'register' %}">{% csrf_token %}
+        <div class="row form-group">
+          <label for="name">Nome:</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="row form-group">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="row form-group">
+          <label for="pwd">Senha:</label>
+          <input type="password" class="form-control" id="pwd" name="password" required>
+        </div>
+        <div class="row form-group">
+          <label for="pwd-confirm">Confirmar senha:</label>
+          <input type="password" class="form-control" id="pwd-confirm" name="password_confirm" required>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-primary col">Salvar</button>
+        </div>
+        <br />
+        <span class="invalid-feedback">Login ou senha invalidos</span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row m-2" style="justify-content: center;">
+
+  </div>
+
+  {% endblock content %}
