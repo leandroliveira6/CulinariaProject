@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from receitasapp import views as receitasview
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('receitasapp.urls')),
-    path('user/', include('usuariosapp.urls')),
+    path('', include('apps.receitasapp.urls')),
+    path('user/', include('apps.usuariosapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,15 +1,18 @@
-from django.shortcuts import render, redirect  # , get_list_or_404, get_object_or_404
+# , get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect
 from .models import Receita
-from django.contrib import auth
-from django.core.files.storage import FileSystemStorage
-
+from django.contrib import auth, messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.text import get_valid_filename
 
 
 def index(request):
     # get_list_or_404(Receita, visible=True)
     receitas = Receita.objects.filter(visible=True)
-    return render(request, 'index.html', {'receitas': receitas})
+    paginator = Paginator(receitas, 3) # define o numero de itens a serem exibidos
+    original_page = request.GET.get('page')
+    paginator_page = paginator.get_page(original_page)
+    return render(request, 'index.html', {'receitas': paginator_page})
 
 
 def minhas_receitas(request):
@@ -30,6 +33,7 @@ def search(request):
         name__contains=request.GET.get('search', ''))
     return render(request, 'index.html', {'receitas': receitas})
 
+
 def nova_receita(request):
     if(request.method == 'POST'):
         print(request.FILES)
@@ -40,10 +44,12 @@ def nova_receita(request):
         category = request.POST.get('category', '')
         picture = request.FILES.get('picture', '')
         picture.name = get_valid_filename(picture.name)
-        Receita.objects.create(name=name, ingredients=ingredients, steps=steps, time=time, category=category, picture=picture, owner_user=auth.get_user(request))
+        Receita.objects.create(name=name, ingredients=ingredients, steps=steps, time=time,
+                               category=category, picture=picture, owner_user=auth.get_user(request))
+        messages.success(request, 'Receita cadastrada com sucesso')
         return redirect('index')
-        
     return render(request, 'nova_receita.html')
+
 
 def mudar_visibilidade(request, id):
     receita = Receita.objects.get(pk=id)

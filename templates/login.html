@@ -8,6 +8,7 @@
       <h1>Login</h1>
     </div>
   </div>
+  {% include 'partials/_alerts.html' %}
   <div class="row">
     <div class="col">
       <form method="POST" action="{% url 'login' %}">{% csrf_token %}

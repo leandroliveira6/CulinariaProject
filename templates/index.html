@@ -3,8 +3,13 @@
 {% block content %}
 
 <div class="container">
-  <div class="row m-2 d-flex justify-content-around">
-
+  <div class="row m-2">
+    <div class="col p-0">
+      <h1>Receitas</h1>
+    </div>
+  </div>
+  {% include 'partials/_alerts.html' %}
+  <div class="row d-flex justify-content-around">
     {% if receitas %}
     {% for receita in receitas %}
     <div class="card col-3">
@@ -23,12 +28,66 @@
       <!-- <div class="card-footer">Footer</div> -->
     </div>
     {% endfor %}
+
     {% else %}
     <div class="col-12 col-sm-6 col-lg-4">
       <p>Não há receitas cadastradas</p>
     </div>
     {% endif %}
   </div>
+
+  <!-- <section class="top-category-area section-padding-20-0"> -->
+  <div class="row m-2 d-flex align-content-end">
+    <div class="col d-flex justify-content-center">
+      {% if receitas.has_other_pages %}
+      <ul class="pagination">
+
+        <!-- Habilita ou não uma seta para retroceder uma pagina -->
+        {% if receitas.has_previous %}
+        <li class="page-item">
+          <a href="?page={{ receitas.previous_page_number }}" class="page-link">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a href="" class="page-link">&laquo;</a>
+        </li>
+        {% endif %}
+
+        <!-- Enumera todas as paginas existentes -->
+        {% for pagina in receitas.paginator.page_range %}
+
+        <!-- Se a pagina for a mesma que está sendo exibida, o link é marcado como ativo e não possui um href -->
+        {% if receitas.number == pagina %}
+        <li class="page-item active">
+          <a class="page-link">{{ pagina }}</a>
+        </li>
+        <!-- Caso não seja a mesma, um link padrão é exibido e possui um href para a pagina referenciada -->
+        {% else %}
+        <li class="page-item">
+          <a href="?page={{pagina}}" class="page-link">{{ pagina }}</a>
+        </li>
+        {% endif %}
+
+        {% endfor %}
+
+        <!-- Habilita ou não uma seta para avançar uma pagina -->
+        {% if receitas.has_next %}
+        <li class="page-item">
+          <a href="?page={{ receitas.next_page_number }}" class="page-link">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a href="" class="page-link">&raquo;</a>
+        </li>
+        {% endif %}
+
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  <!-- </section> -->
 </div>
+
+
 
 {% endblock content %}
